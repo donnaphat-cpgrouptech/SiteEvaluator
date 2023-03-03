@@ -58,7 +58,6 @@ def boundingBox(latitudeInDegrees, longitudeInDegrees, halfSideInKm):
     return (rad2deg(latMin), rad2deg(lonMin), rad2deg(latMax), rad2deg(lonMax))
 
 class AreaMap():
-
   def __init__(self, interestedPoint:list, interestedDistance:int=1):
     self.interestedPoint = interestedPoint
     self.interestedDistance = interestedDistance
@@ -93,19 +92,11 @@ class AreaMap():
         - target: tuple in format (longtitude, latitude)
         - graph: Type networkx.classes.multidigraph.MultiDiGraph
     '''
-    # source = (100.5655348237836, 13.757929379398433)
-    # target = (100.57049791658896, 13.766313614501621)
     source_node = ox.nearest_nodes(graph, source[0], source[1])
     target_node = ox.nearest_nodes(graph, target[0], target[1])
-    # print(source_node)
-    # print(target_node)
     
     dist = nx.shortest_path_length(graph, source_node, target_node, weight="length")
     dist_in_KM = dist/1000
-    # print('distance from source to destination: {} KM'.format(dist_in_KM))
-    if is_plot_path:
-      route = nx.shortest_path(graph, source_node, target_node, weight="length")
-      ox.plot_graph_route(graph, route, route_linewidth=7, route_color='r', node_size=0, bgcolor='k', ax=axs[point])
     return dist_in_KM
 
 
